@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | เปมิกา อ่อนสิงห์ (Pemika Onsing) - เภสัชศาสตร์ ม.มหิดล</title>
+    
+    <!-- Google Fonts: Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS (Animate On Scroll) CSS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        mahidol: {
+                            blue: '#002D72',
+                            sky: '#009CDE'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-14px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #93c5fd;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #1e40af;
+        }
+        /* Glassmorphism utility */
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+
+    <!-- Theme Initialization Script (Prevent FOUC) -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-transparent">
+        <div id="scroll-progress" class="h-full bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 w-0 transition-all duration-150"></div>
+    </div>
+
+    <!-- 1. Navbar -->
+    <header class="fixed top-0 w-full z-40 glass-nav bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-700 to-sky-500 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                        PO
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-base md:text-lg tracking-tight text-slate-900 dark:text-white leading-none">Pemika Onsing</span>
+                        <span class="text-[11px] font-medium text-blue-600 dark:text-sky-400 tracking-wider uppercase mt-0.5">TCAS Portfolio</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center space-x-7 text-sm font-medium text-slate-600 dark:text-slate-300">
+                    <a href="#about" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">เกี่ยวกับฉัน</a>
+                    <a href="#skills" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">ทักษะ</a>
+                    <a href="#projects" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">โครงงาน & ผลงาน</a>
+                    <a href="#activities" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">กิจกรรม</a>
+                    <a href="#certificates" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">เกียรติบัตร</a>
+                    <a href="#contact" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">ติดต่อ</a>
+                </nav>
+
+                <!-- Right Actions: Theme Toggle & Mobile Menu Button -->
+                <div class="flex items-center gap-3">
+                    <button id="theme-toggle" type="button" aria-label="Toggle Dark Mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-sky-400 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i id="theme-toggle-dark-icon" class="fa-solid fa-moon hidden text-base"></i>
+                        <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden text-base text-amber-400"></i>
+                    </button>
+
+                    <button id="mobile-menu-btn" type="button" aria-label="Open Menu" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-5 space-y-2 shadow-xl">
+            <a href="#about" class="mobile-link block px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-sky-400">เกี่ยวกับฉัน (About Me)</a>
+            <a href="#skills" class="mobile-link block px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-sky-400">ทักษะและความสามารถ (Skills)</a>
+            <a href="#projects" class="mobile-link block px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-sky-400">โครงงานและผลงาน (Projects)</a>
+            <a href="#activities" class="mobile-link block px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-sky-400">กิจกรรมและจิตอาสา (Activities)</a>
+            <a href="#certificates" class="mobile-link block px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-sky-400">เกียรติบัตรและรางวัล (Certificates)</a>
+            <a href="#contact" class="mobile-link block px-4 py-2.5 rounded-lg text-sm font-medium text-blue-600 dark:text-sky-400 font-semibold bg-blue-50/50 dark:bg-slate-800/50">ติดต่อฉัน (Contact)</a>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section -->
+    <section id="home" class="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden">
+        <!-- Background Decorative Blobs -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-sky-400/20 dark:bg-sky-500/10 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Info & CTA -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-up">
+                    <!-- Status Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-sky-300 text-xs sm:text-sm font-medium shadow-sm">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600 dark:bg-sky-400"></span>
+                        </span>
+                        Ready for University / TCAS
+                    </div>
+
+                    <!-- Education Subtitle -->
+                    <p class="text-sm sm:text-base font-medium text-slate-600 dark:text-slate-400">
+                        นักเรียนชั้นมัธยมศึกษาปีที่ 6 • แผนการเรียนวิทย์-คณิต <br class="sm:hidden">
+                        <span class="text-blue-700 dark:text-sky-400 font-semibold">โรงเรียนวัดไร่ขิงวิทยา (โครงการห้องเรียนพิเศษ Gifted)</span>
+                    </p>
+
+                    <!-- Full Name -->
+                    <div>
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+                            นางสาวเปมิกา อ่อนสิงห์
+                        </h1>
+                        <p class="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-700 to-sky-500 dark:from-blue-400 dark:to-sky-300 bg-clip-text text-transparent mt-1">
+                            Pemika Onsing
+                        </p>
+                    </div>
+
+                    <!-- Target Faculty Box -->
+                    <div class="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-blue-100 dark:border-slate-800 shadow-sm inline-block text-left">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-mortar-pestle text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">คณะและสาขาเป้าหมาย</p>
+                                <p class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                                    คณะเภสัชศาสตร์ สาขาเภสัชกรรมอุตสาหกรรม
+                                </p>
+                                <p class="text-sm font-semibold text-blue-700 dark:text-sky-400">
+                                    มหาวิทยาลัยมหิดล (Mahidol University)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tagline -->
+                    <p class="text-slate-600 dark:text-slate-300 italic text-base sm:text-lg border-l-4 border-blue-600 dark:border-sky-400 pl-4 py-1 max-w-2xl mx-auto lg:mx-0">
+                        "Learning through curiosity, creating with passion."
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-800 hover:to-sky-700 text-white font-semibold text-sm sm:text-base shadow-lg shadow-blue-600/25 hover:-translate-y-0.5 transition-all">
+                            <i class="fa-solid fa-file-pdf text-lg"></i>
+                            ดาวน์โหลดพอร์ตโฟลิโอ (PDF)
+                        </a>
+                        <a href="#contact" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-sky-400 font-semibold text-sm sm:text-base shadow-sm hover:-translate-y-0.5 transition-all">
+                            <i class="fa-regular fa-paper-plane text-blue-600 dark:text-sky-400"></i>
+                            ติดต่อสอบถาม
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats (3 Columns) -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-5 pt-6 max-w-xl mx-auto lg:mx-0">
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm text-center hover:-translate-y-1 transition-transform">
+                            <div class="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-sky-400">3.85</div>
+                            <div class="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">เกรดเฉลี่ย (GPAX)</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm text-center hover:-translate-y-1 transition-transform">
+                            <div class="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-sky-400">5+</div>
+                            <div class="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">โครงงาน/แข่งขัน</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm text-center hover:-translate-y-1 transition-transform">
+                            <div class="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-sky-400">40+</div>
+                            <div class="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">ชั่วโมงจิตอาสา</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Floating Profile Photo -->
+                <div class="lg:col-span-5 flex justify-center" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 animate-float">
+                        <!-- Glowing Aura Behind Photo -->
+                        <div class="absolute -inset-3 rounded-full bg-gradient-to-tr from-blue-600 via-sky-400 to-cyan-300 opacity-40 dark:opacity-50 blur-2xl animate-pulse-slow"></div>
+                        
+                        <!-- Decorative Ring -->
+                        <div class="absolute inset-0 rounded-full border-2 border-dashed border-blue-400/50 dark:border-sky-400/40 scale-105"></div>
+                        
+                        <!-- Image Container (เปลี่ยน URL รูปภาพตรง src ด้านล่างเป็นรูปของคุณ) -->
+                        <div class="relative w-full h-full rounded-full p-2 bg-gradient-to-tr from-blue-700 to-sky-400 shadow-2xl">
+                            <img 
+                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
+                                alt="นางสาวเปมิกา อ่อนสิงห์ - Pemika Onsing" 
+                                class="w-full h-full object-cover rounded-full border-4 border-white dark:border-slate-900"
+                            >
+                        </div>
+
+                        <!-- Floating Pill Badge 1 -->
+                        <div class="absolute -bottom-2 -left-2 sm:bottom-4 sm:-left-6 bg-white dark:bg-slate-800 px-4 py-2.5 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-sky-400 flex items-center justify-center">
+                                <i class="fa-solid fa-flask-vial"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-[11px] text-slate-400 leading-none">Gifted Program</p>
+                                <p class="text-xs font-bold text-slate-800 dark:text-white mt-0.5">Sci - Math</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Pill Badge 2 -->
+                        <div class="absolute top-4 -right-2 sm:top-6 sm:-right-6 bg-white dark:bg-slate-800 px-4 py-2.5 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-900/60 text-sky-600 dark:text-sky-300 flex items-center justify-center">
+                                <i class="fa-solid fa-capsules"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-[11px] text-slate-400 leading-none">Future Pharmacist</p>
+                                <p class="text-xs font-bold text-slate-800 dark:text-white mt-0.5">Mahidol Univ.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. About Me Section -->
+    <section id="about" class="py-20 bg-white dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-sky-400">About Me</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-2">ประวัติการศึกษาและแนวคิดการเรียนรู้</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- 2-Column Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Card: Education & Statement -->
+                <div class="p-7 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-3.5 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-md shadow-blue-600/20">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">ประวัติการศึกษาและเป้าหมาย</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Academic Background & Inspiration</p>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                        ปัจจุบันกำลังศึกษาอยู่ชั้นมัธยมศึกษาปีที่ 6 แผนการเรียนวิทย์-คณิต (โครงการห้องเรียนพิเศษ Gifted) โรงเรียนวัดไร่ขิงวิทยา มีความสนใจอย่างลึกซึ้งด้าน <strong class="text-blue-700 dark:text-sky-400 font-semibold">วิทยาศาสตร์สุขภาพ เคมี และกระบวนการพัฒนายา</strong> จึงตั้งใจศึกษาต่อในคณะเภสัชศาสตร์ สาขาเภสัชกรรมอุตสาหกรรม มหาวิทยาลัยมหิดล เพื่อพัฒนาศักยภาพสู่การเป็นผู้เชี่ยวชาญในการคิดค้น ผลิต และควบคุมคุณภาพยาที่ได้มาตรฐานสากล
+                    </p>
+
+                    <div class="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-500 dark:text-slate-400"><i class="fa-solid fa-school mr-2 text-blue-600 dark:text-sky-400"></i>สถานศึกษา:</span>
+                            <span class="font-semibold text-slate-800 dark:text-slate-200">โรงเรียนวัดไร่ขิงวิทยา</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-500 dark:text-slate-400"><i class="fa-solid fa-atom mr-2 text-blue-600 dark:text-sky-400"></i>แผนการเรียน:</span>
+                            <span class="font-semibold text-slate-800 dark:text-slate-200">วิทย์-คณิต (Gifted)</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-500 dark:text-slate-400"><i class="fa-solid fa-chart-line mr-2 text-blue-600 dark:text-sky-400"></i>เกรดเฉลี่ยสะสม (GPAX):</span>
+                            <span class="px-3 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-sky-300 font-bold">3.85</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Card: 3 Learning Mindsets -->
+                <div class="p-7 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-3.5 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-500 text-white flex items-center justify-center text-xl shadow-md shadow-sky-500/20">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">แนวคิดและแรงบันดาลใจ</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">3 Core Learning Mindsets</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Mindset 1 -->
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/80 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-sky-400 font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                1
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white text-base">Continuous Learning</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-0.5">ชอบเรียนรู้สิ่งใหม่ๆ กล้าตั้งคำถาม และลงมือปฏิบัติจริงในห้องปฏิบัติการเพื่อพิสูจน์สมมติฐาน</p>
+                            </div>
+                        </div>
+
+                        <!-- Mindset 2 -->
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/80 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-900/60 text-sky-700 dark:text-sky-300 font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                2
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white text-base">Teamwork & Leadership</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-0.5">ทำงานร่วมกับผู้อื่นได้ดี รับฟังความคิดเห็นที่แตกต่าง และกล้าแสดงออกอย่างสร้างสรรค์</p>
+                            </div>
+                        </div>
+
+                        <!-- Mindset 3 -->
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/80 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                3
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white text-base">Problem Solving</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-0.5">คิดวิเคราะห์อย่างมีเหตุผลและแก้ไขปัญหาอย่างเป็นระบบ ซึ่งเป็นหัวใจสำคัญของงานเภสัชกรรม</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Skills & Competencies Section -->
+    <section id="skills" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-sky-400">Skills & Competencies</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-2">ทักษะและความสามารถรอบด้าน</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Category 1: Academic Skills -->
+                <div class="group p-7 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-sky-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-microscope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">ทักษะวิชาการและความถนัด</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Academic & Scientific Competencies</p>
+                    <ul class="space-y-3 text-sm text-slate-700 dark:text-slate-300">
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-600 dark:text-sky-400"></i>
+                            <span>การทำโครงงานวิทยาศาสตร์และวิจัยเบื้องต้น</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-600 dark:text-sky-400"></i>
+                            <span>ทักษะปฏิบัติการเคมีและชีววิทยา</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-600 dark:text-sky-400"></i>
+                            <span>ภาษาอังกฤษเพื่อการสื่อสารและอ่านบทความวิชาการ</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Category 2: Digital Tools -->
+                <div class="group p-7 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 rounded-2xl bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">เครื่องมือและเทคโนโลยี</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Digital Tools & Productivity</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-200/60 dark:border-slate-700">
+                            <i class="fa-solid fa-palette text-sky-500 mr-1.5"></i>Canva
+                        </span>
+                        <span class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-200/60 dark:border-slate-700">
+                            <i class="fa-solid fa-file-word text-blue-600 mr-1.5"></i>MS Word / Excel / PPT
+                        </span>
+                        <span class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-200/60 dark:border-slate-700">
+                            <i class="fa-brands fa-google text-emerald-500 mr-1.5"></i>Google Workspace
+                        </span>
+                        <span class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-200/60 dark:border-slate-700">
+                            <i class="fa-solid fa-video text-indigo-500 mr-1.5"></i>CapCut
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Soft Skills -->
+                <div class="group p-7 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-people-group"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">ทักษะทางสังคม (Soft Skills)</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Interpersonal & Leadership</p>
+                    <div class="grid grid-cols-2 gap-2.5 text-xs font-semibold">
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-microphone-lines text-blue-600 dark:text-sky-400"></i>
+                            <span>การพูดในที่สาธารณะ</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-handshake text-blue-600 dark:text-sky-400"></i>
+                            <span>การทำงานเป็นทีม</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-blue-600 dark:text-sky-400"></i>
+                            <span>การบริหารเวลา</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-blue-600 dark:text-sky-400"></i>
+                            <span>ความคิดสร้างสรรค์</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Projects & Academic Works Section -->
+    <section id="projects" class="py-20 bg-white dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-sky-400">Projects & Academic Works</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-2">โครงงานวิชาการและผลงานเด่น</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">สามารถแก้ไขชื่อโครงงานและรายละเอียดเพิ่มเติมให้ตรงกับผลงานจริงได้ทันที</p>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <article class="group rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-blue-800 to-sky-600">
+                        <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=900&q=80" alt="โครงงานวิทยาศาสตร์" class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-blue-900/85 backdrop-blur-md text-white text-xs font-semibold">
+                            <i class="fa-solid fa-flask mr-1.5 text-sky-300"></i>โครงงานวิชาการ / วิทยาศาสตร์
+                        </span>
+                    </div>
+                    <div class="p-7 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-sky-400 transition-colors">
+                                โครงงานศึกษาประสิทธิภาพสารสกัดสมุนไพรไทยเพื่อประยุกต์ใช้ทางเภสัชกรรม
+                            </h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+                                ศึกษาและทดสอบคุณสมบัติการยับยั้งเชื้อแบคทีเรียของสารสกัดจากพืชสมุนไพรท้องถิ่น เพื่อต่อยอดเป็นผลิตภัณฑ์เจลทำความสะอาดที่ปลอดภัย ลดการระคายเคืองผิว และเป็นมิตรต่อสิ่งแวดล้อม
+                            </p>
+                        </div>
+                        <div class="pt-5 mt-5 border-t border-slate-200/80 dark:border-slate-800">
+                            <p class="text-xs font-semibold text-slate-400 uppercase mb-2.5">เครื่องมือและทักษะที่ใช้:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-lg bg-blue-100/80 dark:bg-blue-950 text-blue-700 dark:text-sky-300 text-xs font-medium">อุปกรณ์ห้องปฏิบัติการ</span>
+                                <span class="px-3 py-1 rounded-lg bg-blue-100/80 dark:bg-blue-950 text-blue-700 dark:text-sky-300 text-xs font-medium">MS Excel วิเคราะห์ข้อมูล</span>
+                                <span class="px-3 py-1 rounded-lg bg-blue-100/80 dark:bg-blue-950 text-blue-700 dark:text-sky-300 text-xs font-medium">Canva</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="group rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-sky-700 to-cyan-600">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80" alt="กิจกรรมสร้างสรรค์และจิตอาสา" class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-sky-900/85 backdrop-blur-md text-white text-xs font-semibold">
+                            <i class="fa-solid fa-hand-holding-heart mr-1.5 text-cyan-300"></i>กิจกรรมสร้างสรรค์ / จิตอาสา
+                        </span>
+                    </div>
+                    <div class="p-7 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-sky-400 transition-colors">
+                                โครงการสื่อรณรงค์การใช้ยาอย่างสมเหตุผลในโรงเรียนและชุมชน
+                            </h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+                                รับผิดชอบในการสำรวจพฤติกรรมการใช้ยาปฏิชีวนะของนักเรียน ออกแบบสื่ออินโฟกราฟิกและวิดีโอสั้นให้ความรู้เกี่ยวกับอันตรายจากการใช้ยาผิดประเภท พร้อมจัดกิจกรรมให้ความรู้แก่น้องๆ ในโรงเรียน
+                            </p>
+                        </div>
+                        <div class="pt-5 mt-5 border-t border-slate-200/80 dark:border-slate-800">
+                            <p class="text-xs font-semibold text-slate-400 uppercase mb-2.5">เครื่องมือและทักษะที่ใช้:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-lg bg-sky-100/80 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-medium">Google Forms</span>
+                                <span class="px-3 py-1 rounded-lg bg-sky-100/80 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-medium">CapCut</span>
+                                <span class="px-3 py-1 rounded-lg bg-sky-100/80 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-medium">การนำเสนอและสื่อสาร</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Activities & Leadership (Timeline) -->
+    <section id="activities" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-sky-400">Activities & Leadership</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-2">ประสบการณ์กิจกรรม ค่าย และจิตอาสา</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Vertical Timeline -->
+            <div class="relative border-l-2 border-blue-200 dark:border-slate-800 ml-4 sm:ml-6 space-y-10">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-8 sm:pl-10" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Timeline Dot -->
+                    <span class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-blue-600 border-4 border-white dark:border-slate-950 shadow"></span>
+                    
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-sky-300 text-xs font-bold">
+                                ปี 2568
+                            </span>
+                            <span class="text-xs font-semibold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/60 px-3 py-1 rounded-lg">
+                                คณะทำงาน / ทีมงานค่ายวิชาการ
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                            กิจกรรมค่ายวิทยาศาสตร์และเปิดบ้านวิชาการ (Open House) โรงเรียนวัดไร่ขิงวิทยา
+                        </h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                            วางแผนและจัดฐานกิจกรรมการทดลองทางเคมีและวิทยาศาสตร์สุขภาพ ต้อนรับนักเรียนระดับชั้นมัธยมศึกษาตอนต้น ฝึกทักษะการเป็นผู้นำ การประสานงานทีม และการถ่ายทอดองค์ความรู้ให้เข้าใจง่าย
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-8 sm:pl-10" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Timeline Dot -->
+                    <span class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-sky-500 border-4 border-white dark:border-slate-950 shadow"></span>
+                    
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold">
+                                ปี 2567
+                            </span>
+                            <span class="text-xs font-semibold text-blue-600 dark:text-sky-400 bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-lg">
+                                ผู้เข้าร่วมอบรม & อาสาสมัคร
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                            ค่ายแนะแนวสู่รั้วเภสัชศาสตร์ และกิจกรรมจิตอาสาพัฒนาชุมชน (40+ ชั่วโมง)
+                        </h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                            เข้าร่วมเรียนรู้บทบาทของเภสัชกรอุตสาหการ กระบวนการตั้งตำรับยาและการควบคุมคุณภาพ รวมถึงร่วมกิจกรรมจิตอาสาบำเพ็ญประโยชน์ดูแลความสะอาดและจัดระเบียบห้องพยาบาลในโรงเรียนและชุมชน
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Certificates & Awards Section -->
+    <section id="certificates" class="py-20 bg-white dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-sky-400">Certificates & Awards</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-2">เกียรติบัตรและรางวัลแห่งความภาคภูมิใจ</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Certificate 1 -->
+                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 text-xs font-semibold">
+                            <i class="fa-solid fa-circle-check"></i> Verified
+                        </span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">
+                        เกียรติบัตรการเข้าร่วมอบรมและปฏิบัติการทางวิทยาศาสตร์โครงการห้องเรียนพิเศษ (Gifted)
+                    </h3>
+                    <p class="text-xs font-medium text-blue-600 dark:text-sky-400 mt-3">
+                        <i class="fa-solid fa-building-columns mr-1.5"></i>โรงเรียนวัดไร่ขิงวิทยา / เครือข่ายห้องเรียนพิเศษ
+                    </p>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-sky-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 text-xs font-semibold">
+                            <i class="fa-solid fa-circle-check"></i> Verified
+                        </span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">
+                        เกียรติบัตรการประกวดโครงงานวิทยาศาสตร์และนวัตกรรมระดับเขตพื้นที่การศึกษา
+                    </h3>
+                    <p class="text-xs font-medium text-blue-600 dark:text-sky-400 mt-3">
+                        <i class="fa-solid fa-building-columns mr-1.5"></i>สำนักงานเขตพื้นที่การศึกษามัธยมศึกษา
+                    </p>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 text-xs font-semibold">
+                            <i class="fa-solid fa-circle-check"></i> Verified
+                        </span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">
+                        เกียรติบัตรผ่านการอบรมค่ายแนะแนววิชาชีพเภสัชศาสตร์และวิทยาศาสตร์สุขภาพ
+                    </h3>
+                    <p class="text-xs font-medium text-blue-600 dark:text-sky-400 mt-3">
+                        <i class="fa-solid fa-building-columns mr-1.5"></i>โครงการค่ายวิชาการสายวิทยาศาสตร์สุขภาพ
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Contact & Footer Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up">
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-sky-400">Contact Me</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-2">ช่องทางการติดต่อ</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">ยินดีรับคำแนะนำและพร้อมสำหรับการสัมภาษณ์เข้าศึกษาต่อ</p>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Left: Clickable Contact Cards -->
+                <div class="lg:col-span-5 space-y-4" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Email Card -->
+                    <a href="mailto:pemika.onsing@example.com" class="flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-sky-400 hover:-translate-y-1 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-sky-400 flex items-center justify-center text-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-400">อีเมล (Email)</p>
+                            <p class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">pemika.onsing@example.com</p>
+                        </div>
+                    </a>
+
+                    <!-- Phone Card -->
+                    <a href="tel:0800000000" class="flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-sky-400 hover:-translate-y-1 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center text-xl group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-400">เบอร์โทรศัพท์ (Phone)</p>
+                            <p class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">08X-XXX-XXXX</p>
+                        </div>
+                    </a>
+
+                    <!-- Social Media Card -->
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                        <p class="text-xs font-medium text-slate-400 mb-3">โซเชียลมีเดีย (Social Media)</p>
+                        <div class="flex items-center gap-3">
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-brands fa-instagram text-base"></i> Instagram
+                            </a>
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-600 hover:text-white text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-brands fa-facebook text-base"></i> Facebook
+                            </a>
+                            <a href="https://line.me" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-emerald-500 hover:text-white text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-brands fa-line text-base"></i> Line
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Contact Form -->
+                <div class="lg:col-span-7 p-7 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">ส่งข้อความถึงฉัน</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="sender-name" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">ชื่อ-นามสกุล / หน่วยงาน</label>
+                                <input type="text" id="sender-name" required placeholder="ระบุชื่อของคุณ" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-sky-400 transition-all">
+                            </div>
+                            <div>
+                                <label for="sender-email" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">อีเมลติดต่อกลับ</label>
+                                <input type="email" id="sender-email" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-sky-400 transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="sender-subject" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">หัวข้อเรื่อง</label>
+                            <input type="text" id="sender-subject" required placeholder="เช่น สอบถามข้อมูลเพิ่มเติม / นัดหมายสัมภาษณ์" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-sky-400 transition-all">
+                        </div>
+                        <div>
+                            <label for="sender-message" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">ข้อความ</label>
+                            <textarea id="sender-message" rows="4" required placeholder="พิมพ์ข้อความของคุณที่นี่..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-sky-400 transition-all"></textarea>
+                        </div>
+                        <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-800 hover:to-sky-700 text-white font-semibold text-sm shadow-lg shadow-blue-600/20 hover:-translate-y-0.5 transition-all">
+                            <i class="fa-solid fa-paper-plane"></i> ส่งข้อความ
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                นางสาวเปมิกา อ่อนสิงห์ (Pemika Onsing)
+            </p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                TCAS Portfolio • คณะเภสัชศาสตร์ สาขาเภสัชกรรมอุตสาหกรรม มหาวิทยาลัยมหิดล
+            </p>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-4">
+                &copy; 2026 Pemika Onsing. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating Back-to-Top Button -->
+    <button id="back-to-top" aria-label="Back to top" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-2xl bg-blue-700 hover:bg-blue-800 dark:bg-sky-500 dark:hover:bg-sky-400 text-white shadow-xl shadow-blue-700/30 flex items-center justify-center opacity-0 invisible translate-y-4 transition-all duration-300">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Smooth Toast Notification -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-2xl border border-slate-700 dark:border-slate-200 opacity-0 invisible translate-y-6 transition-all duration-300">
+        <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <p class="text-sm font-bold">ส่งข้อความสำเร็จเรียบร้อย!</p>
+            <p class="text-xs text-slate-300 dark:text-slate-600">ขอบคุณที่ติดต่อเข้ามา เปมิกาจะรีบตอบกลับโดยเร็วที่สุด</p>
+        </div>
+    </div>
+
+    <!-- AOS JS CDN -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Main Interactive Scripts -->
+    <script>
+        // 1. Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 750,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 60
+        });
+
+        // 2. Dark / Light Mode Toggle with localStorage
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        function updateThemeIcons() {
+            if (document.documentElement.classList.contains('dark')) {
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        }
+        updateThemeIcons();
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+            updateThemeIcons();
+        });
+
+        // 3. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 4. Scroll Progress Bar & Floating Back-to-Top Button
+        const scrollProgress = document.getElementById('scroll-progress');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            scrollProgress.style.width = scrollPercent + '%';
+
+            if (scrollTop > 400) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+                backToTopBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible', 'translate-y-4');
+                backToTopBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 5. Interactive Contact Form with Smooth Toast Notification
+        const contactForm = document.getElementById('contact-form');
+        const toastNotification = document.getElementById('toast-notification');
+        let toastTimeout;
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show Toast
+            clearTimeout(toastTimeout);
+            toastNotification.classList.remove('opacity-0', 'invisible', 'translate-y-6');
+            toastNotification.classList.add('opacity-100', 'visible', 'translate-y-0');
+
+            // Reset Form
+            contactForm.reset();
+
+            // Hide Toast after 4 seconds
+            toastTimeout = setTimeout(() => {
+                toastNotification.classList.add('opacity-0', 'invisible', 'translate-y-6');
+                toastNotification.classList.remove('opacity-100', 'visible', 'translate-y-0');
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
